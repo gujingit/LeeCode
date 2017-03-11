@@ -1,48 +1,44 @@
 #coding=utf-8
-import math
+
 
 class ListNode(object):
-    def __init__(self, x):
+    def __init__(self,x):
         self.val = x
         self.next = None
 
+    def printResult(self):
+        while self:
+            print self.val,' ',
+            self = self.next
+        print ' '
+
 class Solution(object):
-    def List2Num(self, x):
-        l = [0] * 100
-        num = 0
-        while x.next:
-            l[num] = x.val
-            num += 1
-            x = x.next
-        l[num] = x.val
-        result = 0
-        for i in xrange(num):
-            result += int(l[i]) * math.pow(10,i)
-        return result
+    # @return a ListNode
+    def addTowNumbers(self,l1,l2):
+       root = n = ListNode(0)
+       carry = 0
+       while l1 or l2 or carry:
+           v1 = v2 = 0
+           if l1:
+               v1 = l1.val
+               l1 = l1.next
+           if l2:
+               v2 = l2.val
+               l2 = l2.next
+           carry,val = divmod(v1+v2+carry,10)
+           n.next = ListNode(val)
+           n = n.next
+       return root.next
 
-    def Num2List(self,x):
-        l = [0]  *100
-        index = 0
-        x = int(x)
-        while x != 0:
-            l[index] = x % 10
-            x = x / 10
-            index += 1
-        return l[:index]
-
-    def addTwoNumbers(self, l1, l2):
-       
-        a1 = self.List2Num(l1.val)
-        a2 = self.List2Num(l2.val)
-        r = a1 + a2
-        result = self.Num2List(r)
-        return ListNode(result).val
-
-
-
-if __name__ == "__main__":
-    l1 = ListNode([2,3,4])
-    l2 = ListNode([4,5,3])
+if __name__=="__main__":
+    l1 = ListNode(0)
+    l2 = l1.next = ListNode(0)
+    l3 = l2.next = ListNode(5)
+    l1.printResult()
     s = Solution()
-    r = s.addTwoNumbers(l1,l2)
-    print r
+    r = s.addTowNumbers(l1,l1)
+    r.printResult()
+
+
+
+
